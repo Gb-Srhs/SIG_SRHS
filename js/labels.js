@@ -24,39 +24,37 @@ function resetLabels(markers) {
 }
 
 function addLabel(layer, id) {
+    // Verifica se o layer tem um tooltip antes de continuar
+    if (layer.getTooltip && layer.getTooltip() && layer.getTooltip()._source && layer.getTooltip()._source._tooltip && layer.getTooltip()._source._tooltip._container) {
+        var label = layer.getTooltip()._source._tooltip._container;
+        
+        if (label) {
+            var rect = label.getBoundingClientRect();
 
-  // This is ugly but there is no getContainer method on the tooltip :(
-  if (layer.getTooltip()) {
-      var label = layer.getTooltip()._source._tooltip._container;
-      if (label) {
+            var bottomLeft = map.containerPointToLatLng([rect.left, rect.bottom]);
+            var topRight = map.containerPointToLatLng([rect.right, rect.top]);
+            var boundingBox = {
+                bottomLeft: [bottomLeft.lng, bottomLeft.lat],
+                topRight: [topRight.lng, topRight.lat]
+            };
 
-        // We need the bounding rectangle of the label itself
-        var rect = label.getBoundingClientRect();
+            labelEngine.ingestLabel(
+                boundingBox,
+                id,
+                parseInt(Math.random() * (5 - 1) + 1), // Peso
+                label,
+                "Test " + id,
+                false
+            );
 
-        // We convert the container coordinates (screen space) to Lat/lng
-        var bottomLeft = map.containerPointToLatLng([rect.left, rect.bottom]);
-        var topRight = map.containerPointToLatLng([rect.right, rect.top]);
-        var boundingBox = {
-          bottomLeft : [bottomLeft.lng, bottomLeft.lat],
-          topRight   : [topRight.lng, topRight.lat]
-        };
-
-        // Ingest the label into labelgun itself
-        labelEngine.ingestLabel(
-          boundingBox,
-          id,
-          parseInt(Math.random() * (5 - 1) + 1), // Weight
-          label,
-          "Test " + id,
-          false
-        );
-
-        // If the label hasn't been added to the map already
-        // add it and set the added flag to true
-        if (!layer.added) {
-          layer.addTo(map);
-          layer.added = true;
+            if (!layer.added) {
+                layer.addTo(map);
+                layer.added = true;
+            }
+        } else {
+            console.error("Label is undefined.");
         }
-      }
-  }
+    } else {
+        console.error("Tooltip or related properties are undefined for this layer.");
+    }
 }
