@@ -99,7 +99,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-9.64064456652331,-39.07295509194867],[-6.8807926270859445,-34.903082766844015]]);
+        }).fitBounds([[-11.076562471988519,-42.40336111642084],[-4.551212908383341,-31.978680303659182]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -569,7 +569,7 @@
                 lineJoin: 'miter',
                 weight: 2.0, 
                 fill: true,
-                fillOpacity: 0.5,
+                fillOpacity: 1,
                 fillColor: 'rgba(231,207,231,1.0)',
                 interactive: false,
             }
@@ -4479,7 +4479,7 @@
                 lineJoin: 'miter',
                 weight: 2.0, 
                 fill: true,
-                fillOpacity: 0.5,
+                fillOpacity: 1,
                 fillColor: 'rgba(255,255,255,0.5019607843137255)',
                 interactive: false,
             }
