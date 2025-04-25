@@ -5743,7 +5743,7 @@
                 variables: {}
             };
             layer.bindTooltip((layer.feature.properties['nome'] !== null?String('<div style="color: #000000; font-size: 11pt; font-family: \'Calibri\', sans-serif;">' + layer.feature.properties['nome']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_SedesMunicipais_58'});
-            labels.push(layer);
+            let totalMarkers = 0;
             totalMarkers += 1;
               layer.added = true;
               addLabel(layer, i);
